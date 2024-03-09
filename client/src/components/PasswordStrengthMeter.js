@@ -50,7 +50,7 @@ const PasswordStrengthMeter = ({ password }) => {
             <div className="progress" style={{ height: '8px' }}>
                 <div className="progress-bar" style={changePasswordColor()}></div>
             </div>
-            <p className={`text-3xl text-white ${funcProgressColor()}`}>{createPassLabel()}</p>
+            <p className={`text-3xl text-custom-dark dark:text-white ${funcProgressColor()}`}>{createPassLabel()}</p>
         </>
     )
 }

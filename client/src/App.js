@@ -11,7 +11,7 @@ function App() {
   };
 
   return (
-    <div className="h-screen flex justify-center items-center bg-gradient-to-b from-gray-900 to-gray-800 text-white">
+    <div className="h-screen flex justify-center items-center bg-white dark:bg-custom-black">
       <div className="col-md-6 text-center ">
         <h3 className="my-5 text-5xl">
           <span className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">Agatka Cybersekiurity</span>
