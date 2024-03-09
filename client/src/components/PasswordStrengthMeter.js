@@ -12,7 +12,7 @@ const PasswordStrengthMeter = ({ password }) => {
             case 1:
                 return 'Weak';
             case 2:
-                return 'Fear';
+                return 'meh';
             case 3:
                 return 'Good';
             case 4:
@@ -25,7 +25,7 @@ const PasswordStrengthMeter = ({ password }) => {
     const funcProgressColor = () => {
         switch (testResult.score) {
             case 0:
-                return '#828282';
+                return '#000000';
             case 1:
                 return '#EA1111';
             case 2:
@@ -42,7 +42,7 @@ const PasswordStrengthMeter = ({ password }) => {
     const changePasswordColor = () => ({
         width: `${num}%`,
         background: funcProgressColor(),
-        height: '8px'
+        height: '8px',
     })
 
     return (
@@ -50,7 +50,7 @@ const PasswordStrengthMeter = ({ password }) => {
             <div className="progress" style={{ height: '8px' }}>
                 <div className="progress-bar" style={changePasswordColor()}></div>
             </div>
-            <p className={`text-3xl ${funcProgressColor()}`}>{createPassLabel()}</p>
+            <p className={`text-3xl text-custom-dark dark:text-white ${funcProgressColor()}`}>{createPassLabel()}</p>
         </>
     )
 }
