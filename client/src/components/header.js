@@ -4,14 +4,16 @@ import Switcher from "../Switcher";
 
 const Header = () => {
     return (
-        <div className="flex items-center justify-between px-4 py-2 ">
-            <Link to="/" className="text-custom-dark dark:text-white font-bold text-5xl">Agatka</Link>
-            <div className="flex space-x-4 text">
-                <Link to="/Auth" className="text-custom-dark dark:text-white text-2xl">Login</Link>
-                <a href="#" className="text-custom-dark dark:text-white text-2xl">About</a>
-                <a href="#" className="text-custom-dark dark:text-white text-2xl">Contact</a>
-                <div className="right-0">
-                    <Switcher />
+        <div className="flex items-center justify-between px-8 py-2 ">
+            <div className='px-2 flex justify-between items-center w-full h-full'>
+                <Link to="/" className="text-custom-dark w-full dark:text-white font-bold text-5xl">Agatka</Link>
+                <div className="flex space-x-4 text">
+                    <Link to="/Auth" className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Login</Link>
+                    <a href="#" className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Password Checker</a>
+                    <a href="#" className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Contact</a>
+                    <div className="right-0 p-5 transition-all duration-300 ease-in-out hover:scale-110">
+                        <Switcher />
+                    </div>
                 </div>
             </div>
         </div>
