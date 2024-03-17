@@ -14,10 +14,10 @@ function App() {
     <div className="h-screen flex justify-center items-center bg-white dark:bg-custom-black">
       <div className="col-md-6 text-center ">
         <h3 className="my-5 text-5xl">
-          <span className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent">Agatka Cybersekiurity</span>
+          <span className="bg-gradient-to-r from-pink-500 to-blue-500 bg-clip-text text-transparent text-6xl">Agatka Cybersekiurity</span>
         </h3>
         <div>
-          <h1 className='text-center text-black dark:text-white my-2 mt-4 text-xl'>check the strength of your password!</h1>
+          <h1 className='text-center text-black dark:text-white my-2 mt-4 text-2xl'>check the strength of your password!</h1>
         </div>
         <div className="form-group relative mb-1">
           <input

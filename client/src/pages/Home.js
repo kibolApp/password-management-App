@@ -10,8 +10,8 @@ const Home = () => {
         <div className='min-h-screen bg-white dark:bg-custom-black'>
             <Header />
             <Hero />
-            <App />
             <About />
+            <App />
             <Footer />
         </div>
     )

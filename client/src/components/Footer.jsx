@@ -5,7 +5,7 @@ import background from "../../src/background.png";
 
 const Footer = () => {
   return (
-    <div className="w-full mt-24 bg-slate-100 dark:text-gray-300 dark:bg-gray-900 text-custom-dark py-y px-2">
+    <div className="w-full bg-slate-100 dark:text-gray-300 dark:bg-gray-900 text-custom-dark py-y px-2">
       <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-5 border-b-2 border-gray-500 py-8">
         <div>
           <h6 className="font-bold uppercase pt-2">Our Solutions</h6>
