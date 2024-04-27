@@ -11,10 +11,11 @@ const Footer = () => {
     >
       <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-5 border-b-2 border-gray-500 py-8">
         <div>
-          <h6 className="font-bold uppercase pt-2">Our Solutions</h6>
+          <h6 className="font-bold uppercase pt-2">Authors</h6>
           <ul>
-            <li className="py-1">OS</li>
-            <li className="py-1">Data</li>
+            <li className="py-1">Piotr Fedak</li>
+            <li className="py-1">Andrzej Budzyń</li>
+            <li className="py-1">Kacper Wojdak</li>
           </ul>
         </div>
         <div>
