@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Switcher from "../Switcher";
-import { PhoneIcon, ArrowSmRightIcon } from '@heroicons/react/outline';
-import { ChipIcon, SupportIcon } from '@heroicons/react/solid'
 import icon from '../img/icon.png';
+import { HashLink } from 'react-router-hash-link';
 
 const Header = () => {
     return (
@@ -14,9 +13,9 @@ const Header = () => {
                     <span className="text-custom-dark dark:text-white font-bold text-5xl">Agatka</span>
                 </Link>
                 <div className="flex space-x-4 text">
-                    <a href="#" className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Password Checker</a>
                     <Link to="/Auth" className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Login</Link>
-                    <a href="#" className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Contact</a>
+                    <Link to="/Main" className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Password management </Link>
+                    <HashLink smooth to="#Contact" className='className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110"'>Contact</HashLink>
                     <div className="right-0 p-5 transition-all duration-300 ease-in-out hover:scale-110">
                         <Switcher />
                     </div>

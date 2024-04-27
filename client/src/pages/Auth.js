@@ -12,9 +12,9 @@ export default function Auth() {
     }
 
     return (
-        <div className='relative w-full h-screen overflow-hidden bg-white dark:bg-custom-black'>
+        <div className='relative w-full h-screen bg-white dark:bg-custom-black'>
             <Header />
-            <div className='flex justify-center items-center h-full relative z-10'>
+            <div className='mt-10 mb-20 z-10'>
                 {isLoginVisible ? <Login toggleForm={toggleForm} /> : <Register toggleForm={toggleForm} />}
             </div>
             <Footer />
