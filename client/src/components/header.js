@@ -7,16 +7,16 @@ import { useStateContext } from './Context/ContextProvider';
 import axiosClient from './AxiosClient';
 
 const Header = () => {
-    const {token}= useStateContext()
+    const { token } = useStateContext()
     const { setUser, setToken } = useStateContext();
 
     const handleLogout = async () => {
-         axiosClient.post("/logout")
-          .then(() => {
-        setUser({});
-        setToken(null);
-        window.location.reload()
-         });
+        axiosClient.post("/logout")
+            .then(() => {
+                setUser({});
+                setToken(null);
+                window.location.reload()
+            });
     };
 
     return (
@@ -28,7 +28,7 @@ const Header = () => {
                 </Link>
                 <div className="flex space-x-4 text">
                     {token ? (
-                        <button onClick={handleLogout} className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Logout</button>
+                        <button onClick={handleLogout} className="flex text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Logout</button>
                     ) : (
                         <Link to="/Auth" className="text-custom-dark dark:text-white text-2xl p-5 transition-all duration-300 ease-in-out hover:scale-110">Login</Link>
                     )}
