@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import Header from '../components/header';
+import PasswordField from '../components/PasswordField';
+import { v4 as uuidv4 } from 'uuid';
+import { TbHelpHexagon } from "react-icons/tb";
+import { Link } from 'react-router-dom';
 
 const Main = () => {
-    const [passwordFields, setPasswordFields] = useState([{ id: 1 }, { id: 2 }]);
+    const [passwordFields, setPasswordFields] = useState([]);
     const [showPasswordFields, setShowPasswordFields] = useState(false);
-
+    const [helpText, setHelpText] = useState("");
     const togglePasswordFields = () => {
         setShowPasswordFields(!showPasswordFields);
     };
 
     const addPasswordField = () => {
-        const newId = passwordFields.length + 1;
+        if (passwordFields.length >= 7) return;
+        const newId = uuidv4();
         setPasswordFields([...passwordFields, { id: newId }]);
     };
 
@@ -18,36 +23,40 @@ const Main = () => {
         setPasswordFields(passwordFields.filter(field => field.id !== idToRemove));
     };
 
+    const toggleHelpText = () => {
+        setHelpText(helpText ? "" : "Here you can save your passwords, or change it if you want to. To edit click the slide");
+    };
+
     return (
         <div>
             <div className='min-h-screen bg-white dark:bg-custom-black'>
                 <Header />
-                <div className="avatar flex justify-end">
-                    <div className="w-24 mr-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                        <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="Avatar" />
-                    </div>
+                <div className=" flex justify-end px-3 mt-2">
+                    <TbHelpHexagon className="text-4xl cursor-pointer hover:text-oraange" onClick={toggleHelpText} />
+                    {helpText && (
+                        <span className="ml-2 dark:text-white text-lg">{helpText}</span>
+                    )}
                 </div>
-                <div className="flex-1 px-2 mx-2 ">Password Manager</div>
+
+                <ul className='indicator'>
+                    <span className="indicator-item badge badge-secondary"></span>
+                    <Link to="/RPG" className="px-2 text-xl">Random Password Generator</Link>
+                </ul>
 
                 <div className="flex justify-center mt-10">
                     <button className="btn btn-primary  text-lg btn-outline" onClick={togglePasswordFields}>Show Passwords</button>
                 </div>
 
-                {showPasswordFields && (
+                {showPasswordFields && passwordFields.length > 0 && (
                     <div className="flex justify-center mt-5 space-x-4 flex-wrap">
                         {passwordFields.map((field, index) => (
                             <React.Fragment key={field.id}>
-                                <div className={`card w-96 mt-3 mb-3 ${index % 2 === 0 ? 'bg-primary text-primary-content' : 'bg-neutral text-neutral-content'}`}>
-                                    <div className="card-body">
-                                        <h2 className="card-title">Password Field {field.id}</h2>
-                                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                                        <div className="card-actions justify-end">
-                                            <button className="btn" onClick={() => removePasswordField(field.id)}>Remove</button>
-                                            <button className="btn">Edit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                {index !== passwordFields.length - 1 && <div className="divider divider-horizontal">X</div>}
+                                <PasswordField
+                                    id={field.id}
+                                    removePasswordField={() => removePasswordField(field.id)}
+                                    primary={index % 2 === 0}
+                                />
+                                {(index + 2) % 2 === 0 && index !== passwordFields.length - 1 && <div className="divider divider-horizontal">X</div>}
                             </React.Fragment>
                         ))}
                     </div>
