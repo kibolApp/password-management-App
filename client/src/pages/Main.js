@@ -12,7 +12,7 @@ const Main = () => {
     };
 
     const addPasswordField = () => {
-        if (passwordFields.length >= 6) return;
+        if (passwordFields.length >= 7) return;
         const newId = uuidv4();
         setPasswordFields([...passwordFields, { id: newId }]);
     };
