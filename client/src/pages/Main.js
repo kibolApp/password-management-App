@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/header';
+import PasswordField from '../components/PasswordField';
+import { v4 as uuidv4 } from 'uuid';
 
 const Main = () => {
     const [passwordFields, setPasswordFields] = useState([{ id: 1 }, { id: 2 }]);
@@ -10,7 +12,8 @@ const Main = () => {
     };
 
     const addPasswordField = () => {
-        const newId = passwordFields.length + 1;
+        if (passwordFields.length >= 6) return;
+        const newId = uuidv4();
         setPasswordFields([...passwordFields, { id: newId }]);
     };
 
@@ -37,17 +40,12 @@ const Main = () => {
                     <div className="flex justify-center mt-5 space-x-4 flex-wrap">
                         {passwordFields.map((field, index) => (
                             <React.Fragment key={field.id}>
-                                <div className={`card w-96 mt-3 mb-3 ${index % 2 === 0 ? 'bg-primary text-primary-content' : 'bg-neutral text-neutral-content'}`}>
-                                    <div className="card-body">
-                                        <h2 className="card-title">Password Field {field.id}</h2>
-                                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                                        <div className="card-actions justify-end">
-                                            <button className="btn" onClick={() => removePasswordField(field.id)}>Remove</button>
-                                            <button className="btn">Edit</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                {index !== passwordFields.length - 1 && <div className="divider divider-horizontal">X</div>}
+                                <PasswordField
+                                    id={field.id}
+                                    removePasswordField={() => removePasswordField(field.id)}
+                                    primary={index % 2 === 0}
+                                />
+                                {(index + 2) % 2 === 0 && index !== passwordFields.length - 1 && <div className="divider divider-horizontal">X</div>}
                             </React.Fragment>
                         ))}
                     </div>
