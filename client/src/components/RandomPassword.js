@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import Header from './header';
 import Clipboard from 'clipboard';
 import { FaCopy } from "react-icons/fa6";
+import { useStateContext } from './Context/ContextProvider';
+import axiosClient from './AxiosClient';
 
 const RandomPassword = () => {
+    const { user } = useStateContext()
     const [password, setPassword] = useState('');
     const [passwordStrength, setPasswordStrength] = useState('');
 
@@ -62,6 +65,7 @@ const RandomPassword = () => {
     };
 
     const copyToClipboard = () => {
+
         const clipboard = new Clipboard('.btn-copy', {
             text: () => password
         });
@@ -76,6 +80,19 @@ const RandomPassword = () => {
             clipboard.destroy();
         });
     };
+    const savePassword = () => {
+        const payload={
+            user_id:user.id,
+            password: password,
+          };
+          console.log(payload);
+          axiosClient.post('/save',payload)
+          .then(({data})=>{
+          })
+          .catch(err=>{
+            console.log(err);
+          })
+    }
 
     return (
         <div className='relative w-full h-screen bg-white dark:bg-custom-black'>
@@ -105,7 +122,9 @@ const RandomPassword = () => {
                     <div className="rating rating-lg rating-half">
                         {renderStars(passwordStrength)}
                     </div>
-
+                    <div className="text-center mt-4">
+                        <button className="btn btn-primary" onClick={savePassword}>Save Password</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,14 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/header';
 import PasswordField from '../components/PasswordField';
 import { v4 as uuidv4 } from 'uuid';
 import { TbHelpHexagon } from "react-icons/tb";
 import { Link } from 'react-router-dom';
+import { useStateContext } from '../components/Context/ContextProvider';
+import axiosClient from '../components/AxiosClient';
 
 const Main = () => {
+    const { user } = useStateContext();
     const [passwordFields, setPasswordFields] = useState([]);
     const [showPasswordFields, setShowPasswordFields] = useState(false);
     const [helpText, setHelpText] = useState("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axiosClient.post('/show', { user_id: user.id });
+                const passwordsFromServer = response.data.passwords;
+                setPasswordFields(passwordsFromServer.map(password => ({ id: uuidv4(), value: password })));
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [user.id]);
+
     const togglePasswordFields = () => {
         setShowPasswordFields(!showPasswordFields);
     };
@@ -31,7 +49,7 @@ const Main = () => {
         <div>
             <div className='min-h-screen bg-white dark:bg-custom-black'>
                 <Header />
-                <div className=" flex justify-end px-3 mt-2">
+                <div className="flex justify-end px-3 mt-2">
                     <TbHelpHexagon className="text-4xl cursor-pointer hover:text-oraange" onClick={toggleHelpText} />
                     {helpText && (
                         <span className="ml-2 dark:text-white text-lg">{helpText}</span>
@@ -53,6 +71,7 @@ const Main = () => {
                             <React.Fragment key={field.id}>
                                 <PasswordField
                                     id={field.id}
+                                    value={field.value}
                                     removePasswordField={() => removePasswordField(field.id)}
                                     primary={index % 2 === 0}
                                 />
