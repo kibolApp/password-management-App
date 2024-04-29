@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Password;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class PasswordController extends Controller
 {
@@ -34,6 +35,8 @@ class PasswordController extends Controller
              return response()->json(['message' => 'Password already exists for this user'], 409);
         }
     }
+
+    
     public function show(Request $request)
     {
      
