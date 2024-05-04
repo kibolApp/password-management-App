@@ -12,9 +12,6 @@ const PasswordField = ({ id, value, removePasswordField, primary }) => {
 
     const handleInputChange = (e) => {
         setPassword(e.target.value);
-        if (e.target.value !== value) {
-            updatePasswordInDatabase(e.target.value);
-        }
     };
 
     const toggleId = () => {
@@ -44,6 +41,10 @@ const PasswordField = ({ id, value, removePasswordField, primary }) => {
 
     const passwordToShow = password.trim() !== "" ? password : "No Password";
 
+    const handleEditFinish = () => {
+        console.log('Password has been changed');
+    };
+
     return (
         <div className={`card w-96 h-72 mt-3 mb-3 ${primary ? 'bg-primary text-primary-content' : 'bg-neutral text-neutral-content'}`}>
             <div className="card-body text-white">
@@ -68,6 +69,7 @@ const PasswordField = ({ id, value, removePasswordField, primary }) => {
                         className="input input-bordered input-info w-full max-w-xs"
                         value={password}
                         onChange={handleInputChange}
+                        onBlur={handleEditFinish} // Dodane wywołanie po zakończeniu edycji
                     />
                 ) : (
                     <textarea className="textarea" placeholder="" disabled>{passwordToShow}</textarea>
