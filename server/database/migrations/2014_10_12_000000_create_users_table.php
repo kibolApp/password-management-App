@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
+    
     /**
      * Run the migrations.
      */
@@ -19,6 +21,15 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::create('saved_passwords', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->text('saved_passwords'); 
+            $table->timestamps();
+
+            $table->unique('saved_passwords');
         });
     }
 

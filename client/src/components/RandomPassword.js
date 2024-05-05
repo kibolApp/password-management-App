@@ -62,6 +62,7 @@ const RandomPassword = () => {
     };
 
     const copyToClipboard = () => {
+
         const clipboard = new Clipboard('.btn-copy', {
             text: () => password
         });
@@ -76,6 +77,7 @@ const RandomPassword = () => {
             clipboard.destroy();
         });
     };
+    
 
     return (
         <div className='relative w-full h-screen bg-white dark:bg-custom-black'>
@@ -105,7 +107,6 @@ const RandomPassword = () => {
                     <div className="rating rating-lg rating-half">
                         {renderStars(passwordStrength)}
                     </div>
-
                 </div>
             </div>
         </div>

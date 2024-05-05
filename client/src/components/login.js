@@ -21,6 +21,8 @@ const Login = ({ toggleForm }) => {
         .then(({data})=>{
           setUser(data.user)
           setToken(data.token)
+          const userId = data.user.id; 
+          document.cookie = `user_id=${userId}; path=/;`;
         })
         .catch(err=>{
           console.log(err);

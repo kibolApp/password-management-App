@@ -1,25 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/header';
 import PasswordField from '../components/PasswordField';
 import { v4 as uuidv4 } from 'uuid';
 import { TbHelpHexagon } from "react-icons/tb";
 import { Link } from 'react-router-dom';
+import axiosClient from '../components/AxiosClient';
 
 const Main = () => {
+    const userId = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("user_id="))
+            ?.split("=")[1];
+
     const [passwordFields, setPasswordFields] = useState([]);
     const [showPasswordFields, setShowPasswordFields] = useState(false);
     const [helpText, setHelpText] = useState("");
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axiosClient.post('/show', { user_id: userId });
+                const passwordsFromServer = response.data.passwords;
+                addPasswordFieldFromBase(passwordsFromServer.map(password => ({ id: uuidv4(), value: password })));
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [userId]);
+
     const togglePasswordFields = () => {
         setShowPasswordFields(!showPasswordFields);
+    };
+
+    const addPasswordFieldFromBase = (passwords) => {
+        setPasswordFields(passwords);
     };
 
     const addPasswordField = () => {
         if (passwordFields.length >= 7) return;
         const newId = uuidv4();
-        setPasswordFields([...passwordFields, { id: newId }]);
+        setPasswordFields([...passwordFields, { id: newId, value: "" }]);
     };
+    
 
-    const removePasswordField = (idToRemove) => {
+    const removePasswordField = (idToRemove,password) => {
+        console.log(idToRemove,password);
         setPasswordFields(passwordFields.filter(field => field.id !== idToRemove));
     };
 
@@ -31,7 +58,7 @@ const Main = () => {
         <div>
             <div className='min-h-screen bg-white dark:bg-custom-black'>
                 <Header />
-                <div className=" flex justify-end px-3 mt-2">
+                <div className="flex justify-end px-3 mt-2">
                     <TbHelpHexagon className="text-4xl cursor-pointer hover:text-oraange" onClick={toggleHelpText} />
                     {helpText && (
                         <span className="ml-2 dark:text-white text-lg">{helpText}</span>
@@ -53,6 +80,7 @@ const Main = () => {
                             <React.Fragment key={field.id}>
                                 <PasswordField
                                     id={field.id}
+                                    value={field.value}
                                     removePasswordField={() => removePasswordField(field.id)}
                                     primary={index % 2 === 0}
                                 />
