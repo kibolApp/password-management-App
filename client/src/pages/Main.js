@@ -45,8 +45,8 @@ const Main = () => {
     };
     
 
-    const removePasswordField = (idToRemove) => {
-        console.log(idToRemove);
+    const removePasswordField = (idToRemove,password) => {
+        console.log(idToRemove,password);
         setPasswordFields(passwordFields.filter(field => field.id !== idToRemove));
     };
 

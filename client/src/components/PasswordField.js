@@ -103,7 +103,7 @@ const PasswordField = ({ id, value, removePasswordField, primary }) => {
                         <p className="py-4">This action cannot be undone. Your password will be gone.</p>
                         <div className="modal-action">
                             <button className="btn" onClick={() => document.getElementById('delete_password_modal').close()}>Cancel</button>
-                            <button className="btn btn-primary" onClick={() => { removePasswordField(id); document.getElementById('delete_password_modal').close() }}>Delete</button>
+                            <button className="btn btn-primary" onClick={() => { removePasswordField(userId,password); document.getElementById('delete_password_modal').close() }}>Delete</button>
                         </div>
                     </div>
                 </dialog>
