@@ -2,9 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axiosClient from '../components/AxiosClient';
 
 const PasswordField = ({ id, value, removePasswordField, primary }) => {
+    const userId = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("user_id="))
+        ?.split("=")[1];
+
     const [isEditable, setIsEditable] = useState(false);
     const [showId, setShowId] = useState(false);
     const [password, setPassword] = useState(value);
+    const [originalPassword, setOriginalPassword] = useState(value);
 
     useEffect(() => {
         setPassword(value);
@@ -31,9 +37,9 @@ const PasswordField = ({ id, value, removePasswordField, primary }) => {
         document.body.removeChild(input);
     };
 
-    const updatePasswordInDatabase = async (newPassword) => {
+    const updatePasswordInDatabase = async (newPassword, oldPassword) => {
         try {
-            await axiosClient.put(`/update/${id}`, { password: newPassword });
+            await axiosClient.post(`/update`, { user_id: userId, newpassword: newPassword, oldpassword: oldPassword });
         } catch (error) {
             console.error('Error updating password:', error);
         }
@@ -43,6 +49,10 @@ const PasswordField = ({ id, value, removePasswordField, primary }) => {
 
     const handleEditFinish = () => {
         console.log('Password has been changed');
+        console.log('Old password:', originalPassword);
+        console.log('New password:', password);
+        updatePasswordInDatabase(password, originalPassword);
+        setOriginalPassword(password);
     };
 
     return (
@@ -69,7 +79,7 @@ const PasswordField = ({ id, value, removePasswordField, primary }) => {
                         className="input input-bordered input-info w-full max-w-xs"
                         value={password}
                         onChange={handleInputChange}
-                        onBlur={handleEditFinish} // Dodane wywołanie po zakończeniu edycji
+                        onBlur={handleEditFinish}
                     />
                 ) : (
                     <textarea className="textarea" placeholder="" disabled>{passwordToShow}</textarea>
@@ -93,7 +103,7 @@ const PasswordField = ({ id, value, removePasswordField, primary }) => {
                         <p className="py-4">This action cannot be undone. Your password will be gone.</p>
                         <div className="modal-action">
                             <button className="btn" onClick={() => document.getElementById('delete_password_modal').close()}>Cancel</button>
-                            <button className="btn btn-primary" onClick={() => { removePasswordField(); document.getElementById('delete_password_modal').close() }}>Delete</button>
+                            <button className="btn btn-primary" onClick={() => { removePasswordField(id); document.getElementById('delete_password_modal').close() }}>Delete</button>
                         </div>
                     </div>
                 </dialog>

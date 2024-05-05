@@ -4,11 +4,14 @@ import PasswordField from '../components/PasswordField';
 import { v4 as uuidv4 } from 'uuid';
 import { TbHelpHexagon } from "react-icons/tb";
 import { Link } from 'react-router-dom';
-import { useStateContext } from '../components/Context/ContextProvider';
 import axiosClient from '../components/AxiosClient';
 
 const Main = () => {
-    const { user } = useStateContext();
+    const userId = document.cookie
+            .split("; ")
+            .find((row) => row.startsWith("user_id="))
+            ?.split("=")[1];
+
     const [passwordFields, setPasswordFields] = useState([]);
     const [showPasswordFields, setShowPasswordFields] = useState(false);
     const [helpText, setHelpText] = useState("");
@@ -16,28 +19,34 @@ const Main = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axiosClient.post('/show', { user_id: user.id });
+                const response = await axiosClient.post('/show', { user_id: userId });
                 const passwordsFromServer = response.data.passwords;
-                setPasswordFields(passwordsFromServer.map(password => ({ id: uuidv4(), value: password })));
+                addPasswordFieldFromBase(passwordsFromServer.map(password => ({ id: uuidv4(), value: password })));
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
         fetchData();
-    }, [user.id]);
+    }, [userId]);
 
     const togglePasswordFields = () => {
         setShowPasswordFields(!showPasswordFields);
     };
 
+    const addPasswordFieldFromBase = (passwords) => {
+        setPasswordFields(passwords);
+    };
+
     const addPasswordField = () => {
         if (passwordFields.length >= 7) return;
         const newId = uuidv4();
-        setPasswordFields([...passwordFields, { id: newId }]);
+        setPasswordFields([...passwordFields, { id: newId, value: "" }]);
     };
+    
 
     const removePasswordField = (idToRemove) => {
+        console.log(idToRemove);
         setPasswordFields(passwordFields.filter(field => field.id !== idToRemove));
     };
 

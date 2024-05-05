@@ -12,13 +12,10 @@ class Password extends Model
 
     protected $fillable = [
         'user_id',
-        'saved_passwords|uniqe',
+        'saved_passwords',
     ];
 
-    protected $casts = [
-        'saved_passwords' => 'array',
-    ];
-
+   
     public function user()
     {
         return $this->belongsTo(User::class);
