@@ -22,7 +22,7 @@ const Header = () => {
     return (
         <div className="flex items-center justify-between px-8 py-2 ">
             <div className='px-2 flex justify-between items-center w-full h-full'>
-                <Link to="/" className="flex items-center">
+                <Link to="/home" className="flex items-center">
                     <img src={icon} alt="Agatka" className="h-16 w-16 mr-2" />
                     <span className="text-custom-dark dark:text-white font-bold text-5xl">Agatka</span>
                 </Link>
